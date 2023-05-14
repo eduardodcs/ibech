@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.mack.ibech.domain.Cliente;
 import br.com.mack.ibech.domain.Fornecedor;
+import br.com.mack.ibech.domain.Livro;
 import br.com.mack.ibech.repositories.ClienteRepository;
 import br.com.mack.ibech.repositories.FornecedorRepository;
+import br.com.mack.ibech.repositories.LivroRepository;
 
 
 @Service
@@ -20,6 +22,9 @@ public class DBService {
 	
 	@Autowired
 	private FornecedorRepository fornecedorRepository;
+	
+	@Autowired
+	private LivroRepository livroRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder encoder;
@@ -49,6 +54,16 @@ public class DBService {
 		Fornecedor forn9 = new Fornecedor(null, "Editora USP", "17444064000184", "fornecedor09@gmail.com.br");
 		Fornecedor forn10 = new Fornecedor(null, "Viseu", "63747687000143", "fornecedor10@gmail.com.br");
 		fornecedorRepository.saveAll(Arrays.asList(forn1, forn2, forn3, forn4, forn5, forn6, forn7, forn8, forn9, forn10));
+		
+		Livro liv01 = new Livro(null, "Como fazer amigos e influenciar pessoas", "Dale Carnegie", 
+				"Um dos maiores clássicos de todos os tempos, Como fazer amigos e influenciar pessoas é considerado a Bíblia dos relacionamentos interpessoais.", 
+				49.90);
+		Livro liv02 = new Livro(null, "A revolução dos bichos: Um conto de fadas", "George Orwell e Heitor Aquino Ferreira",
+				"Verdadeiro clássico moderno, concebido por um dos mais influentes escritores do século XX, A revolução dos bichos é uma fábula sobre o poder. "
+				+ "Narra a insurreição dos animais de uma granja contra seus donos. Progressivamente, porém, a revolução degenera numa tirania ainda mais opressiva que a dos humanos.",
+				37.80);
+		this.livroRepository.saveAll(Arrays.asList(liv01, liv02));
+		
 		
 	}
 	
