@@ -1,5 +1,6 @@
 package br.com.mack.ibech.services;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,11 @@ import org.springframework.stereotype.Service;
 import br.com.mack.ibech.domain.Cliente;
 import br.com.mack.ibech.domain.Fornecedor;
 import br.com.mack.ibech.domain.Livro;
+import br.com.mack.ibech.domain.Pedido;
 import br.com.mack.ibech.repositories.ClienteRepository;
 import br.com.mack.ibech.repositories.FornecedorRepository;
 import br.com.mack.ibech.repositories.LivroRepository;
+import br.com.mack.ibech.repositories.PedidoRepository;
 
 
 @Service
@@ -25,6 +28,9 @@ public class DBService {
 	
 	@Autowired
 	private LivroRepository livroRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder encoder;
@@ -63,6 +69,9 @@ public class DBService {
 				+ "Narra a insurreição dos animais de uma granja contra seus donos. Progressivamente, porém, a revolução degenera numa tirania ainda mais opressiva que a dos humanos.",
 				37.80);
 		this.livroRepository.saveAll(Arrays.asList(liv01, liv02));
+		
+		Pedido ped01 = new Pedido(null, cli4, 93.50, LocalDate.of(2023, 5, 3));
+		this.pedidoRepository.saveAll(Arrays.asList(ped01));
 		
 		
 	}
