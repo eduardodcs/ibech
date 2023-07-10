@@ -15,6 +15,8 @@ public class DBConfig {
 	@Bean
 	public void instanciaDB() {
 		this.dbService.instaciaDB();
+		
 	}
+	
 	
 }

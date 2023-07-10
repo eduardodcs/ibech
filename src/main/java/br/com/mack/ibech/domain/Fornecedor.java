@@ -2,15 +2,13 @@ package br.com.mack.ibech.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import javax.persistence.CollectionTable;
+
+
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
+
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +18,6 @@ import org.hibernate.validator.constraints.br.CNPJ;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.mack.ibech.domain.dtos.FornecedorDTO;
-import br.com.mack.ibech.domain.enums.Perfil;
 
 @Entity
 public class Fornecedor implements Serializable {
@@ -97,5 +94,11 @@ public class Fornecedor implements Serializable {
 	public void setDataCriacao(LocalDate dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
+
+	public void setSenha(String encode) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 }

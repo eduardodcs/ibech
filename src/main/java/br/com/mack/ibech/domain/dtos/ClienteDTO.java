@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.mack.ibech.domain.Cliente;
 import br.com.mack.ibech.domain.enums.Perfil;
-
+// classe DTO nao passa regra de negocio
 public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

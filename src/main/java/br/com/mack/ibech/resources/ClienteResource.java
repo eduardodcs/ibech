@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -24,6 +26,8 @@ import br.com.mack.ibech.services.ClienteService;
 
 @RestController
 @RequestMapping(value = "/clientes")
+//ou seja, receber as requisições HTTP, direcioná-las
+//para o serviço apropriado e retornar as respostas adequadas.
 public class ClienteResource {
 	
 	@Autowired
@@ -49,16 +53,38 @@ public class ClienteResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@PutMapping(value = "/{id}")
-	public ResponseEntity<ClienteDTO> update(@PathVariable Integer id, @Valid @RequestBody ClienteDTO dto){	
-		Cliente obj = this.clienteService.update(id, dto);
-		return ResponseEntity.ok().body(new ClienteDTO(obj));
+	@PutMapping("/clientes/{id}/update")
+	public ResponseEntity<ClienteDTO> update(@PathVariable Integer id, @Valid @RequestBody ClienteDTO dto) {
+		return null;
+	    // Implementação do método
 	}
+
+	@DeleteMapping("/clientes/{id}/delete")
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		return null;
+	    // Implementação do método
+	}
+
+	@PutMapping("/{id}/ponto")
+	public ResponseEntity<Void> baterPonto(@PathVariable Integer id) {
+	    clienteService.baterPonto(id);
+	    return ResponseEntity.noContent().build();
+	}
+	@PostMapping("/login")
+	public ResponseEntity<ClienteDTO> login(@RequestParam String email, @RequestParam String senha) {
+	    Cliente cliente = clienteService.findByEmailAndSenha(email, senha);
+	    if (cliente != null) {
+	        // Login bem-sucedido, retornar dados do cliente ou token JWT
+	        ClienteDTO clienteDTO = new ClienteDTO(cliente);
+	        return ResponseEntity.ok().body(clienteDTO);
+	    } else {
+	        // Credenciais inválidas, retornar erro de autenticação
+	        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+	    }
+	}
+
 	
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<ClienteDTO> delete(@PathVariable Integer id){
-		this.clienteService.delete(id);
-		return ResponseEntity.noContent().build();
-	}
+
+
 }
 

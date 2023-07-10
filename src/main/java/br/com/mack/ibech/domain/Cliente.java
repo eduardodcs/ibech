@@ -22,10 +22,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import br.com.mack.ibech.domain.dtos.ClienteDTO;
 import br.com.mack.ibech.domain.enums.Perfil;
 
-@Entity
+@Entity // informando que os dados fornecidos ser do banco de dados
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+// essa classe esta associada a class DTO 
+	// essa classe tbm nao passa regra de negocio
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -45,6 +46,7 @@ public class Cliente implements Serializable {
 	public Cliente() {
 		addPerfil(Perfil.CLIENTE);
 	}
+	private LocalDate ponto;
 	
 	public Cliente(Integer id, String nome, @CPF String cpf, String email, String senha) {
 		super();
@@ -66,6 +68,7 @@ public class Cliente implements Serializable {
 		this.perfis = dto.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
 		this.dataCriacao = dto.getDataCriacao();
 	}
+	
 
 	public Integer getId() {
 		return id;
@@ -122,6 +125,23 @@ public class Cliente implements Serializable {
 	public void setDataCriacao(LocalDate dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
+
+	public LocalDate getPonto() {
+		
+		return ponto;
+	}
+
+	public void setPonto(LocalDate now) {
+	    LocalDate dataAtual = LocalDate.now();
+	    if (now != null && now.isBefore(dataAtual) && !now.equals(ponto)) {
+	        this.ponto = now;
+	    } else {
+	        throw new IllegalArgumentException("O cliente já bateu o ponto hoje.");
+	    }
+	}
+	
+
+
 
 	
 	

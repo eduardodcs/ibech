@@ -2,16 +2,13 @@ package br.com.mack.ibech.domain.dtos;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.mack.ibech.domain.Fornecedor;
-import br.com.mack.ibech.domain.enums.Perfil;
 
 public class FornecedorDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

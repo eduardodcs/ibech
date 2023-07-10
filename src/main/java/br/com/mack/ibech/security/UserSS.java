@@ -33,16 +33,16 @@ public class UserSS implements UserDetails{
 	}
 
 	@Override
-	public String getPassword() {
+	public String getPassword() { //getPassword: Retorna a senha do usuário.
 		return senha;
 	}
 
 	@Override
-	public String getUsername() {
+	public String getUsername() { //Retorna o nome de usuário do usuário, que é o e-mail neste caso.
 		return email;
 	}
 
-	public Integer getId() {
+	public Integer getId() {  //: Retorna o ID do usuário.
 		return id;
 	}
 	

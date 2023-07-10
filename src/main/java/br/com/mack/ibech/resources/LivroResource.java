@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.mack.ibech.domain.Cliente;
 import br.com.mack.ibech.domain.Livro;
-import br.com.mack.ibech.domain.dtos.ClienteDTO;
 import br.com.mack.ibech.domain.dtos.LivroDTO;
 import br.com.mack.ibech.services.LivroService;
 

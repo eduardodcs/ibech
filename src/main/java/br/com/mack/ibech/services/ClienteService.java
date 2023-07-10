@@ -1,5 +1,6 @@
 package br.com.mack.ibech.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,9 +13,11 @@ import org.springframework.stereotype.Service;
 
 import br.com.mack.ibech.domain.Cliente;
 import br.com.mack.ibech.domain.dtos.ClienteDTO;
+import br.com.mack.ibech.domain.enums.Perfil;
 import br.com.mack.ibech.repositories.ClienteRepository;
 import br.com.mack.ibech.services.exceptions.ObjectNotFoundException;
 
+//contém a lógica de negócio relacionada aos clientes, como busca, criação, atualização e exclusão de clientes, além de realizar validações e manipular os dados antes de persisti-los no banco de dados.
 @Service
 public class ClienteService {
 
@@ -53,6 +56,12 @@ public class ClienteService {
 			throw new DataIntegrityViolationException("E-mail já cadastrado no sistema!");
 		}
 	}
+	public void baterPonto(Integer id) {
+	    Cliente cliente = findById(id);
+	    cliente.setPonto(LocalDate.now());
+	    clienteRepository.save(cliente);
+	}
+
 
 	public Cliente update(Integer id, @Valid ClienteDTO dto) {
 		dto.setId(id);
@@ -65,9 +74,33 @@ public class ClienteService {
 		return clienteRepository.save(oldObj);
 	}
 
-	public void delete(Integer id) {
+	public void delete(Integer id, String senha) {
 		Cliente obj = this.findById(id);
+		
+		 if (!obj.getPerfis().contains(Perfil.ADMIN)) {
+		        throw new RuntimeException("Somente o administrador pode excluir um cliente.");
+		    }
+
+		 
 		clienteRepository.delete(obj);
 	}
+
+	public void baterPonto1(Integer id) {
+	    Cliente cliente = findById(id);
+	    cliente.setPonto(LocalDate.now());
+	    clienteRepository.save(cliente);
+	}
+	public Cliente findByEmailAndSenha(String email, String senha) {
+	    Optional<Cliente> clienteOptional = clienteRepository.findByEmail(email);
+	    if (clienteOptional.isPresent()) {
+	        Cliente cliente = clienteOptional.get();
+	        if (encoder.matches(senha, cliente.getSenha())) {
+	            return cliente;
+	        }
+	    }
+	    throw new IllegalArgumentException("Credenciais inválidas, informe ao seu patrão"); // Lança exceção informando que as credenciais são inválidas
+	}
+
+
 
 }
